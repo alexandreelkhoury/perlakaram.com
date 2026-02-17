@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useLang } from '../context/LangContext'
+import CalendlyWidget from '../components/CalendlyWidget'
 
 const SAGE     = '#3D5A4E'
 const TERR     = '#C4785A'
@@ -103,6 +104,40 @@ export default function Contact() {
           </p>
         </div>
       </div>
+
+      {/* ── Calendly booking ───────────────────────────────── */}
+      <section style={{ background: CREAM, padding: 'clamp(3rem,8vw,6rem) clamp(1.25rem,4vw,2rem)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+            <p style={{
+              fontFamily: bodyFont, fontSize: '0.72rem',
+              letterSpacing: isAr ? '0.04em' : '0.22em',
+              textTransform: isAr ? 'none' : 'uppercase',
+              color: TERR, marginBottom: '1rem',
+            }}>
+              {c.bookingEyebrow}
+            </p>
+            <h2 style={{
+              fontFamily: displayFont,
+              fontSize: 'clamp(1.9rem, 3.5vw, 3rem)',
+              fontStyle: isAr ? 'normal' : 'italic', fontWeight: 400, color: CHARCOAL,
+              marginBottom: '0.75rem',
+            }}>
+              {c.bookingTitle}
+            </h2>
+            <p style={{ fontFamily: bodyFont, fontSize: '0.92rem', color: '#5A5A58', maxWidth: '520px', margin: '0 auto', lineHeight: 1.7 }}>
+              {c.bookingSubtitle}
+            </p>
+          </div>
+          <div style={{
+            background: WARM,
+            border: '1px solid rgba(61,90,78,0.1)',
+            padding: '0.5rem',
+          }}>
+            <CalendlyWidget />
+          </div>
+        </div>
+      </section>
 
       {/* ── Main content ───────────────────────────────────── */}
       <section style={{ padding: 'clamp(3rem,8vw,6rem) clamp(1.25rem,4vw,2rem)' }}>

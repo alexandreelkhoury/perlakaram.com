@@ -192,6 +192,9 @@ const translations = {
       selectOptions: ['Thérapie individuelle', 'Thérapie de couple', 'Anxiété & dépression', 'Traumatismes & EMDR', 'Développement personnel', 'Soutien professionnel', 'Autre / Je ne sais pas encore'],
       sentTitle: 'Message envoyé !',
       sentP: 'Merci pour votre message. Je vous répondrai dans les 48h ouvrées.',
+      bookingEyebrow: 'Réserver en ligne',
+      bookingTitle: 'Choisissez votre créneau',
+      bookingSubtitle: 'Sélectionnez directement le jour et l\'heure qui vous conviennent. Je vous confirme le rendez-vous par email.',
       faqEyebrow: 'FAQ',
       faqTitle: 'Questions fréquentes',
       faqs: [
@@ -396,6 +399,9 @@ const translations = {
       selectOptions: ['Individual therapy', 'Couples therapy', 'Anxiety & depression', 'Trauma & EMDR', 'Personal development', 'Professional support', 'Other / Not sure yet'],
       sentTitle: 'Message sent!',
       sentP: 'Thank you for your message. I will get back to you within 48 working hours.',
+      bookingEyebrow: 'Book online',
+      bookingTitle: 'Choose your time slot',
+      bookingSubtitle: 'Select the day and time that suits you directly. I will confirm your appointment by email.',
       faqEyebrow: 'FAQ',
       faqTitle: 'Frequently asked questions',
       faqs: [
@@ -600,6 +606,9 @@ const translations = {
       selectOptions: ['علاج فردي', 'علاج الأزواج', 'قلق واكتئاب', 'صدمات وEMDR', 'تنمية شخصية', 'دعم مهني', 'أخرى / لست متأكداً بعد'],
       sentTitle: 'تم إرسال رسالتك!',
       sentP: 'شكراً لرسالتك. سأرد عليك في غضون 48 ساعة عمل.',
+      bookingEyebrow: 'احجز عبر الإنترنت',
+      bookingTitle: 'اختر موعدك',
+      bookingSubtitle: 'اختر اليوم والوقت المناسبَين لك مباشرةً. سأؤكد موعدك عبر البريد الإلكتروني.',
       faqEyebrow: 'أسئلة شائعة',
       faqTitle: 'الأسئلة الأكثر طرحاً',
       faqs: [
