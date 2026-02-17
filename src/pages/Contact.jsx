@@ -2,6 +2,9 @@ import { useState } from 'react'
 import { useLang } from '../context/LangContext'
 import CalendlyWidget from '../components/CalendlyWidget'
 
+// Paste Perla's Web3Forms access key here (https://web3forms.com)
+const WEB3FORMS_KEY = ''
+
 const SAGE     = '#3D5A4E'
 const TERR     = '#C4785A'
 const CREAM    = '#F5EFE6'
@@ -38,15 +41,44 @@ export default function Contact() {
     motif: '', message: '', accord: false,
   })
   const [sent, setSent] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
 
   const handle = e => {
     const { name, value, type, checked } = e.target
     setForm(f => ({ ...f, [name]: type === 'checkbox' ? checked : value }))
   }
 
-  const submit = e => {
+  const submit = async e => {
     e.preventDefault()
-    setSent(true)
+    setLoading(true)
+    setError(false)
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          name: `${form.prenom} ${form.nom}`.trim(),
+          email: form.email,
+          phone: form.telephone || undefined,
+          subject: `[perlakaram.com] ${form.motif || 'Nouveau message'}`,
+          message: form.message,
+          language: lang,
+        }),
+      })
+      const data = await res.json()
+      if (data.success) {
+        setSent(true)
+      } else {
+        setError(true)
+      }
+    } catch {
+      setError(true)
+    } finally {
+      setLoading(false)
+    }
   }
 
   function Field({ label, name, type = 'text', value, onChange, required }) {
@@ -226,6 +258,22 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                {error && (
+                  <div style={{
+                    background: '#FEF2F2', border: '1px solid #FECACA',
+                    padding: '1rem 1.25rem', display: 'flex', gap: '0.75rem', alignItems: 'flex-start',
+                  }}>
+                    <span style={{ fontSize: '1.1rem', flexShrink: 0 }}>⚠️</span>
+                    <div>
+                      <p style={{ fontFamily: bodyFont, fontSize: '0.85rem', fontWeight: 600, color: '#991B1B', marginBottom: '2px' }}>
+                        {c.errorTitle}
+                      </p>
+                      <p style={{ fontFamily: bodyFont, fontSize: '0.82rem', color: '#7F1D1D', lineHeight: 1.5 }}>
+                        {c.errorP}
+                      </p>
+                    </div>
+                  </div>
+                )}
                 <div className="name-row">
                   <Field label={c.fieldFirst} name="prenom" value={form.prenom} onChange={handle} required />
                   <Field label={c.fieldLast}  name="nom"    value={form.nom}    onChange={handle} required />
@@ -259,8 +307,13 @@ export default function Contact() {
                   </span>
                 </label>
 
-                <button type="submit" className="btn-sage" style={{ width: '100%', textAlign: 'center', fontFamily: bodyFont }}>
-                  {c.submitBtn}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="btn-sage"
+                  style={{ width: '100%', textAlign: 'center', fontFamily: bodyFont, opacity: loading ? 0.7 : 1, cursor: loading ? 'not-allowed' : 'pointer' }}
+                >
+                  {loading ? c.sending : c.submitBtn}
                 </button>
                 <p style={{ fontFamily: bodyFont, fontSize: '0.78rem', color: '#8FAF9F', textAlign: 'center' }}>
                   {c.formNote}
