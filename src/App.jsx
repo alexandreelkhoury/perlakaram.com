@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
+import { LangProvider, useLang } from './context/LangContext'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home     from './pages/Home'
@@ -15,11 +16,14 @@ function ScrollToTop() {
   return null
 }
 
-function App() {
+function AppInner() {
+  const { lang } = useLang()
+  const bodyFont = lang === 'ar' ? "'Cairo', sans-serif" : "'Jost', sans-serif"
+
   return (
     <Router>
       <ScrollToTop />
-      <div style={{ fontFamily: "'Jost', sans-serif", background: '#FEFAF5', color: '#1C1C1A', minHeight: '100vh' }}>
+      <div style={{ fontFamily: bodyFont, background: '#FEFAF5', color: '#1C1C1A', minHeight: '100vh' }}>
         <Navbar />
         <Routes>
           <Route path="/"         element={<Home />} />
@@ -30,6 +34,14 @@ function App() {
         <Footer />
       </div>
     </Router>
+  )
+}
+
+function App() {
+  return (
+    <LangProvider>
+      <AppInner />
+    </LangProvider>
   )
 }
 
