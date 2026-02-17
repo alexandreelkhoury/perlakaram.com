@@ -1,0 +1,96 @@
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes lineGrow {
+  from { scaleX: 0; }
+  to   { scaleX: 1; }
+}
+
+.anim-fade-up  { animation: fadeUp  0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
+.anim-fade-in  { animation: fadeIn  0.75s ease forwards; }
+.anim-slide-r  { animation: slideRight 0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
+
+.anim-delay-1  { animation-delay: 0.10s; }
+.anim-delay-2  { animation-delay: 0.20s; }
+.anim-delay-3  { animation-delay: 0.35s; }
+.anim-delay-4  { animation-delay: 0.50s; }
+.anim-delay-5  { animation-delay: 0.65s; }
+.anim-delay-6  { animation-delay: 0.80s; }
+
+/* Cards hover lift */
+.card-lift {
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease;
+}
+.card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(61,90,78,0.12);
+}
+
+/* Button transitions */
+.btn-sage {
+  display: inline-block;
+  background: #3D5A4E;
+  color: #F5EFE6;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.85rem 2rem;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.25s ease;
+  border: none;
+  cursor: pointer;
+}
+.btn-sage:hover {
+  background: #2D4539;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  display: inline-block;
+  background: transparent;
+  color: #3D5A4E;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.85rem 2rem;
+  text-decoration: none;
+  border: 1.5px solid #3D5A4E;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.25s ease;
+  cursor: pointer;
+}
+.btn-outline:hover {
+  background: #3D5A4E;
+  color: #F5EFE6;
+  transform: translateY(-1px);
+}
+
+/* Section label / eyebrow */
+.eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #C4785A;
+}
+
+/* Thin divider line */
+.divider {
+  width: 48px;
+  height: 1.5px;
+  background: #C4785A;
+  margin: 1.25rem 0;
+}
