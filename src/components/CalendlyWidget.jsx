@@ -3,7 +3,7 @@ import { useLang } from '../context/LangContext'
 
 // Set this to Perla's actual Calendly URL once her account is created
 // e.g. 'https://calendly.com/perla-karam'
-const CALENDLY_URL = ''
+const CALENDLY_URL = 'https://calendly.com/perlakarampsy'
 
 const SAGE = '#3D5A4E'
 const TERR = '#C4785A'

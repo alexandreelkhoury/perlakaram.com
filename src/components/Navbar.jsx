@@ -49,7 +49,7 @@ export default function Navbar() {
       transition: 'all 0.45s cubic-bezier(0.22,1,0.36,1)',
       background: scrolled
         ? 'rgba(254,250,245,0.94)'
-        : 'linear-gradient(to bottom, rgba(20,35,28,0.42) 0%, rgba(20,35,28,0) 100%)',
+        : 'linear-gradient(to bottom, rgba(20,35,28,0.78) 0%, rgba(20,35,28,0.05) 100%)',
       backdropFilter: scrolled ? 'blur(12px)' : 'none',
       borderBottom:   scrolled ? '1px solid rgba(61,90,78,0.12)' : 'none',
     }}>
