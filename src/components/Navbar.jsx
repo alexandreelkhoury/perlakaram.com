@@ -23,6 +23,7 @@ export default function Navbar() {
     { to: '/',         label: t.nav.home },
     { to: '/about',    label: t.nav.about },
     { to: '/services', label: t.nav.services },
+    { to: '/blog',     label: t.nav.blog },
     { to: '/contact',  label: t.nav.contact },
   ]
 
