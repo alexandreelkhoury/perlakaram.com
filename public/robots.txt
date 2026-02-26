@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://perlakaram.com/sitemap.xml

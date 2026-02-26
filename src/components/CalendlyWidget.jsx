@@ -6,7 +6,7 @@ import { useLang } from '../context/LangContext'
 const CALENDLY_URL = 'https://calendly.com/perlakarampsy'
 
 const SAGE = '#3D5A4E'
-const TERR = '#C4785A'
+const TERR = '#A0856C'
 const CREAM = '#F5EFE6'
 
 const placeholder = {

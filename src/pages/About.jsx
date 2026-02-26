@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
 import { useLang } from '../context/LangContext'
+import Seo from '../components/Seo'
 
 const SAGE     = '#3D5A4E'
-const TERR     = '#C4785A'
+const TERR     = '#A0856C'
 const CREAM    = '#F5EFE6'
-const BLUSH    = '#E8C4B0'
+const BLUSH    = '#D4C4B0'
 const CHARCOAL = '#1C1C1A'
 const WARM     = '#FEFAF5'
 
@@ -26,6 +27,7 @@ export default function About() {
 
   return (
     <div style={{ paddingTop: '72px' }}>
+      <Seo title={t.seo.aboutTitle} description={t.seo.aboutDesc} path="/about" lang={lang} />
 
       {/* ── Hero banner ───────────────────────────────────────── */}
       <div style={{
@@ -52,11 +54,24 @@ export default function About() {
         <div className="portrait-bio-grid" style={{ maxWidth: '1200px', margin: '0 auto' }}>
           {/* Portrait */}
           <div style={{ position: 'relative', paddingBottom: '1rem' }}>
-            <div style={{ aspectRatio: '3/4', background: CREAM, position: 'relative' }}>
+            <div style={{ aspectRatio: '3/4', background: CREAM, position: 'relative', overflow: 'hidden' }}>
+              <picture>
+                <source srcSet="/profile_picture.webp" type="image/webp" />
+                <img
+                  src="/profile_picture.jpeg"
+                  alt="Perla Karam — Psychologue Clinicienne"
+                  loading="lazy"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  onError={(e) => {
+                    e.target.parentElement.style.display = 'none'
+                    e.target.parentElement.nextSibling.style.display = 'flex'
+                  }}
+                />
+              </picture>
               <div style={{
-                position: 'absolute', inset: 0,
+                display: 'none', position: 'absolute', inset: 0,
                 background: `linear-gradient(135deg, ${BLUSH} 0%, #D4A090 100%)`,
-                display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
               }}>
                 <div style={{ fontSize: '3rem', color: 'rgba(61,90,78,0.3)', marginBottom: '0.5rem' }}>◌</div>
                 <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '0.65rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(61,90,78,0.4)' }}>
@@ -83,7 +98,7 @@ export default function About() {
               fontSize: 'clamp(1.8rem, 3vw, 2.6rem)',
               fontStyle: isAr ? 'normal' : 'italic', fontWeight: 400, color: CHARCOAL, lineHeight: 1.3,
             }}>
-              Perla
+              Perla Karam
             </h2>
             <Divider />
             <p style={{ fontFamily: bodyFont, fontSize: '0.92rem', lineHeight: 1.85, color: '#5A5A58', marginBottom: '1rem' }}>
@@ -96,42 +111,6 @@ export default function About() {
               {a.bioP3}
             </p>
             <Link to="/contact" className="btn-sage">{a.bioCta}</Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Mon approche ─────────────────────────────────────── */}
-      <section style={{ background: CREAM, padding: 'clamp(3rem,8vw,6rem) clamp(1.25rem,4vw,2rem)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ maxWidth: '680px', marginBottom: '3.5rem' }}>
-            <Eyebrow>{a.approachEyebrow}</Eyebrow>
-            <h2 style={{
-              fontFamily: displayFont,
-              fontSize: 'clamp(2rem, 3.5vw, 3rem)',
-              fontStyle: isAr ? 'normal' : 'italic', fontWeight: 400, color: CHARCOAL, lineHeight: 1.3,
-            }}>
-              {a.approachTitle}
-            </h2>
-            <Divider />
-            <p style={{ fontFamily: bodyFont, fontSize: '0.92rem', lineHeight: 1.85, color: '#5A5A58' }}>
-              {a.approachP}
-            </p>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
-            {a.approaches.map(({ title, full, desc }) => (
-              <div key={title} className="card-lift" style={{ background: WARM, padding: '2rem', borderTop: `3px solid ${SAGE}` }}>
-                <p style={{ fontFamily: displayFont, fontSize: '1.4rem', fontWeight: 500, color: SAGE, marginBottom: '0.25rem' }}>
-                  {title}
-                </p>
-                <p style={{ fontFamily: bodyFont, fontSize: '0.72rem', color: TERR, letterSpacing: '0.05em', marginBottom: '0.75rem', textTransform: isAr ? 'none' : 'uppercase' }}>
-                  {full}
-                </p>
-                <p style={{ fontFamily: bodyFont, fontSize: '0.87rem', lineHeight: 1.7, color: '#5A5A58' }}>
-                  {desc}
-                </p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -150,7 +129,7 @@ export default function About() {
           <Divider />
           <div style={{ marginTop: '2.5rem' }}>
             {a.formations.map(({ year, title, lieu }, i) => (
-              <div key={year} className="formation-row" style={{
+              <div key={i} className="formation-row" style={{
                 paddingBottom: '2rem',
                 borderBottom: i < a.formations.length - 1 ? '1px solid rgba(61,90,78,0.12)' : 'none',
                 marginBottom: '2rem',

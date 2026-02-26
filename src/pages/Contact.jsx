@@ -1,14 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLang } from '../context/LangContext'
 import CalendlyWidget from '../components/CalendlyWidget'
+import Seo from '../components/Seo'
 
 // Paste Perla's Web3Forms access key here (https://web3forms.com)
 const WEB3FORMS_KEY = ''
 
 const SAGE     = '#3D5A4E'
-const TERR     = '#C4785A'
+const TERR     = '#A0856C'
 const CREAM    = '#F5EFE6'
-const BLUSH    = '#E8C4B0'
+const BLUSH    = '#D4C4B0'
 const CHARCOAL = '#1C1C1A'
 const WARM     = '#FEFAF5'
 
@@ -109,10 +110,47 @@ export default function Contact() {
     )
   }
 
-  const contactItems = [c.address, c.phone, c.email, c.hours]
+  const contactItems = [c.email, c.phone, c.address, c.hours].filter(Boolean)
+
+  // Inject FAQ structured data + Calendly CSS
+  useEffect(() => {
+    // FAQ Schema
+    const faqSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: c.faqs.map(({ q, a }) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    }
+    let script = document.getElementById('faq-schema')
+    if (!script) {
+      script = document.createElement('script')
+      script.id = 'faq-schema'
+      script.type = 'application/ld+json'
+      document.head.appendChild(script)
+    }
+    script.textContent = JSON.stringify(faqSchema)
+
+    // Calendly CSS (lazy-loaded only on this page)
+    let calendlyLink = document.getElementById('calendly-css')
+    if (!calendlyLink) {
+      calendlyLink = document.createElement('link')
+      calendlyLink.id = 'calendly-css'
+      calendlyLink.rel = 'stylesheet'
+      calendlyLink.href = 'https://assets.calendly.com/assets/external/widget.css'
+      document.head.appendChild(calendlyLink)
+    }
+
+    return () => {
+      script?.remove()
+    }
+  }, [c.faqs])
 
   return (
     <div style={{ paddingTop: '72px' }}>
+      <Seo title={t.seo.contactTitle} description={t.seo.contactDesc} path="/contact" lang={lang} />
 
       {/* ── Hero banner ────────────────────────────────────── */}
       <div style={{
@@ -210,20 +248,15 @@ export default function Contact() {
               ))}
             </div>
 
-            {/* Map placeholder */}
+            {/* Online consultations note */}
             <div style={{
-              width: '100%', aspectRatio: '16/9',
-              background: CREAM, border: '1px solid rgba(61,90,78,0.15)',
-              display: 'flex', flexDirection: 'column',
-              alignItems: 'center', justifyContent: 'center',
-              color: 'rgba(61,90,78,0.35)', gap: '0.5rem',
+              background: CREAM, padding: '1.5rem',
+              border: `1px solid rgba(61,90,78,0.15)`,
+              display: 'flex', gap: '1rem', alignItems: 'flex-start',
             }}>
-              <span style={{ fontSize: '2rem' }}>🗺️</span>
-              <p style={{ fontFamily: bodyFont, fontSize: '0.72rem', letterSpacing: isAr ? '0.04em' : '0.15em', textTransform: isAr ? 'none' : 'uppercase' }}>
-                {c.mapLabel}
-              </p>
-              <p style={{ fontFamily: bodyFont, fontSize: '0.75rem', color: TERR, textDecoration: 'underline', cursor: 'pointer' }}>
-                {c.mapLink}
+              <span style={{ fontSize: '1.4rem', flexShrink: 0 }}>💻</span>
+              <p style={{ fontFamily: bodyFont, fontSize: '0.88rem', lineHeight: 1.7, color: '#5A5A58' }}>
+                {lang === 'fr' ? "Toutes les consultations se font en ligne, par visioconférence. Un lien sécurisé vous sera envoyé avant chaque séance." : lang === 'en' ? "All consultations take place online via video conference. A secure link will be sent to you before each session." : "جميع الاستشارات تتم عبر الإنترنت بالفيديو. سيتم إرسال رابط آمن لك قبل كل جلسة."}
               </p>
             </div>
           </div>

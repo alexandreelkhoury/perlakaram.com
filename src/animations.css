@@ -84,13 +84,13 @@
   font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #C4785A;
+  color: #A0856C;
 }
 
 /* Thin divider line */
 .divider {
   width: 48px;
   height: 1.5px;
-  background: #C4785A;
+  background: #A0856C;
   margin: 1.25rem 0;
 }

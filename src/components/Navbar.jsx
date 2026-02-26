@@ -3,9 +3,9 @@ import { Link, useLocation } from 'react-router-dom'
 import { useLang } from '../context/LangContext'
 
 const SAGE = '#3D5A4E'
-const TERR = '#C4785A'
+const TERR = '#A0856C'
 const CREAM = '#F5EFE6'
-const BLUSH = '#E8C4B0'
+const BLUSH = '#D4C4B0'
 
 const LANG_OPTIONS = [
   { code: 'fr', label: 'FR' },
@@ -34,11 +34,11 @@ export default function Navbar() {
 
   useEffect(() => { setMenuOpen(false) }, [location.pathname])
 
-  const logoColor  = scrolled ? SAGE   : '#FEFAF5'
-  const subColor   = scrolled ? TERR   : 'rgba(232,196,176,0.85)'
-  const linkColor  = scrolled ? SAGE   : 'rgba(255,255,255,0.82)'
-  const linkActive = scrolled ? TERR   : BLUSH
-  const barColor   = scrolled ? SAGE   : '#FEFAF5'
+  const logoColor  = SAGE
+  const subColor   = TERR
+  const linkColor  = SAGE
+  const linkActive = TERR
+  const barColor   = SAGE
 
   const bodyFont = lang === 'ar' ? "'Cairo', sans-serif" : "'Jost', sans-serif"
   const isAr = lang === 'ar'
@@ -47,11 +47,9 @@ export default function Navbar() {
     <nav style={{
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
       transition: 'all 0.45s cubic-bezier(0.22,1,0.36,1)',
-      background: scrolled
-        ? 'rgba(254,250,245,0.94)'
-        : 'linear-gradient(to bottom, rgba(20,35,28,0.78) 0%, rgba(20,35,28,0.05) 100%)',
-      backdropFilter: scrolled ? 'blur(12px)' : 'none',
-      borderBottom:   scrolled ? '1px solid rgba(61,90,78,0.12)' : 'none',
+      background: 'rgba(254,250,245,0.94)',
+      backdropFilter: 'blur(12px)',
+      borderBottom: '1px solid rgba(61,90,78,0.12)',
     }}>
       <div style={{
         maxWidth: '1200px', margin: '0 auto',
@@ -68,7 +66,7 @@ export default function Navbar() {
             color: logoColor, letterSpacing: '0.01em', lineHeight: 1,
             transition: 'color 0.45s ease',
           }}>
-            Perla
+            Perla Karam
           </span>
           <span style={{
             display: 'block', fontFamily: bodyFont,
@@ -115,15 +113,9 @@ export default function Navbar() {
                     fontSize: '0.65rem', letterSpacing: '0.06em',
                     padding: '0.28rem 0.55rem',
                     cursor: 'pointer', transition: 'all 0.25s ease',
-                    background: isActive
-                      ? (scrolled ? SAGE : 'rgba(255,255,255,0.2)')
-                      : 'transparent',
-                    color: isActive
-                      ? (scrolled ? CREAM : '#FEFAF5')
-                      : (scrolled ? 'rgba(61,90,78,0.55)' : 'rgba(255,255,255,0.5)'),
-                    border: `1px solid ${isActive
-                      ? (scrolled ? SAGE : 'rgba(255,255,255,0.4)')
-                      : (scrolled ? 'rgba(61,90,78,0.18)' : 'rgba(255,255,255,0.18)')}`,
+                    background: isActive ? SAGE : 'transparent',
+                    color: isActive ? CREAM : 'rgba(61,90,78,0.55)',
+                    border: `1px solid ${isActive ? SAGE : 'rgba(61,90,78,0.18)'}`,
                   }}
                 >
                   {label}
@@ -140,11 +132,7 @@ export default function Navbar() {
             textTransform: isAr ? 'none' : 'uppercase',
             padding: '0.6rem 1.5rem',
             transition: 'background 0.35s ease, color 0.35s ease, border-color 0.35s ease',
-            ...(scrolled ? {
-              background: SAGE, color: CREAM, border: `1.5px solid ${SAGE}`,
-            } : {
-              background: 'transparent', color: '#FEFAF5', border: '1.5px solid rgba(255,255,255,0.55)',
-            }),
+            background: SAGE, color: CREAM, border: `1.5px solid ${SAGE}`,
           }}>
             {t.nav.cta}
           </Link>
