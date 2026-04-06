@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useLang } from '../context/LangContext'
 import Seo from '../components/Seo'
+import articles from '../data/articles'
 
 const SAGE     = '#3D5A4E'
 const TERR     = '#A0856C'
@@ -14,6 +15,15 @@ export default function Blog() {
   const isAr = lang === 'ar'
   const bodyFont = isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif"
   const displayFont = isAr ? "'Cairo', sans-serif" : "'Cormorant Garamond', Georgia, serif"
+
+  const readMore = lang === 'ar' ? 'اقرأ المقال' : lang === 'en' ? 'Read article' : "Lire l'article"
+
+  const formatDate = (dateStr) => {
+    const d = new Date(dateStr)
+    return d.toLocaleDateString(lang === 'ar' ? 'ar-EG' : lang === 'en' ? 'en-GB' : 'fr-FR', {
+      year: 'numeric', month: 'long', day: 'numeric',
+    })
+  }
 
   return (
     <div>
@@ -46,37 +56,63 @@ export default function Blog() {
         </div>
       </section>
 
-      {/* Empty state */}
-      <section style={{ background: WARM, padding: 'clamp(4rem,8vw,7rem) clamp(1.25rem,4vw,2rem)', textAlign: 'center' }}>
-        <div style={{ maxWidth: '520px', margin: '0 auto' }}>
-          <div style={{
-            width: '80px', height: '80px', margin: '0 auto 2rem',
-            borderRadius: '50%', background: CREAM,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '2rem', color: SAGE,
-          }}>
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={SAGE} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 20h9" />
-              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-            </svg>
-          </div>
-          <h2 style={{
-            fontFamily: displayFont,
-            fontSize: 'clamp(1.6rem, 3vw, 2.2rem)',
-            fontStyle: isAr ? 'normal' : 'italic', fontWeight: 400,
-            color: CHARCOAL, marginBottom: '1rem',
-          }}>
-            {b.emptyTitle}
-          </h2>
-          <p style={{
-            fontFamily: bodyFont, fontSize: '0.92rem',
-            lineHeight: 1.8, color: '#5A5A58', marginBottom: '2.5rem',
-          }}>
-            {b.emptyP}
-          </p>
-          <Link to="/" className="btn-outline">
-            {b.emptyCta}
-          </Link>
+      {/* Articles */}
+      <section style={{ background: WARM, padding: 'clamp(4rem,8vw,7rem) clamp(1.25rem,4vw,2rem)' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto', direction: isAr ? 'rtl' : 'ltr' }}>
+          {articles.map((article) => {
+            const title = article.title[lang] || article.title.fr
+            const excerpt = article.excerpt[lang] || article.excerpt.fr
+            const readTime = article.readTime[lang] || article.readTime.fr
+
+            return (
+              <Link
+                key={article.slug}
+                to={`/blog/${article.slug}`}
+                style={{ textDecoration: 'none', display: 'block', marginBottom: '2.5rem' }}
+              >
+                <article style={{
+                  background: '#fff',
+                  border: `1px solid rgba(61,90,78,0.1)`,
+                  borderRadius: '16px',
+                  padding: 'clamp(1.5rem, 3vw, 2.5rem)',
+                  transition: 'box-shadow 0.3s ease, transform 0.3s ease',
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 8px 32px rgba(61,90,78,0.1)'; e.currentTarget.style.transform = 'translateY(-2px)' }}
+                  onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'none' }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+                    <span style={{ fontFamily: bodyFont, fontSize: '0.78rem', color: TERR }}>{formatDate(article.date)}</span>
+                    <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(61,90,78,0.2)' }} />
+                    <span style={{ fontFamily: bodyFont, fontSize: '0.78rem', color: '#8FAF9F' }}>{readTime}</span>
+                  </div>
+
+                  <h2 style={{
+                    fontFamily: displayFont,
+                    fontSize: 'clamp(1.3rem, 2.5vw, 1.7rem)',
+                    fontStyle: isAr ? 'normal' : 'italic', fontWeight: 400,
+                    color: CHARCOAL, lineHeight: 1.35, marginBottom: '0.75rem',
+                  }}>
+                    {title}
+                  </h2>
+
+                  <p style={{
+                    fontFamily: bodyFont, fontSize: '0.92rem',
+                    lineHeight: 1.8, color: '#5A5A58', marginBottom: '1.25rem',
+                  }}>
+                    {excerpt}
+                  </p>
+
+                  <span style={{
+                    fontFamily: bodyFont, fontSize: '0.85rem',
+                    color: SAGE, fontWeight: 500,
+                    display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                  }}>
+                    {readMore} {isAr ? '←' : '→'}
+                  </span>
+                </article>
+              </Link>
+            )
+          })}
         </div>
       </section>
     </div>

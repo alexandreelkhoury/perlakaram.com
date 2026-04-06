@@ -39,7 +39,7 @@ export default function Contact() {
 
   const [form, setForm] = useState({
     prenom: '', nom: '', email: '', telephone: '',
-    motif: '', message: '', accord: false,
+    message: '', accord: false,
   })
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -64,7 +64,7 @@ export default function Contact() {
           name: `${form.prenom} ${form.nom}`.trim(),
           email: form.email,
           phone: form.telephone || undefined,
-          subject: `[perlakaram.com] ${form.motif || 'Nouveau message'}`,
+          subject: `[perlakaram.com] Nouveau message`,
           message: form.message,
           language: lang,
         }),
@@ -314,18 +314,7 @@ export default function Contact() {
                 <Field label={c.fieldEmail} name="email"     type="email" value={form.email}     onChange={handle} required />
                 <Field label={c.fieldPhone} name="telephone" type="tel"   value={form.telephone} onChange={handle} />
 
-                <div>
-                  <label style={labelStyle}>{c.fieldMotif} *</label>
-                  <select
-                    name="motif" value={form.motif} onChange={handle} required
-                    style={{ ...inputStyle, appearance: 'none', cursor: 'pointer' }}
-                  >
-                    <option value="">{c.selectDefault}</option>
-                    {c.selectOptions.map(opt => <option key={opt}>{opt}</option>)}
-                  </select>
-                </div>
-
-                <TextareaField
+<TextareaField
                   label={c.fieldMessage} name="message"
                   value={form.message} onChange={handle} required rows={6}
                 />
